@@ -1,11 +1,15 @@
 # NAME
 
 Struct::Path::JsonPointer - JsonPointer ([rfc6901](https://tools.ietf.org/html/rfc6901))
-frontend for [Struct::Path](https://metacpan.org/pod/Struct::Path).
+syntax frontend for [Struct::Path](https://metacpan.org/pod/Struct::Path)
+
+<a href="https://travis-ci.org/mr-mixas/Struct-Path-JsonPointer.pm"><img src="https://travis-ci.org/mr-mixas/Struct-Path-JsonPointer.pm.svg?branch=master" alt="Travis CI"></a>
+<a href='https://coveralls.io/github/mr-mixas/Struct-Path-JsonPointer.pm?branch=master'><img src='https://coveralls.io/repos/github/mr-mixas/Struct-Path-JsonPointer.pm/badge.svg?branch=master' alt='Coverage Status'/></a>
+<a href="https://badge.fury.io/pl/Struct-Path-JsonPointer"><img src="https://badge.fury.io/pl/Struct-Path-JsonPointer.svg" alt="CPAN version"></a>
 
 # VERSION
 
-Version 0.01
+Version 0.02
 
 # SYNOPSIS
 
@@ -36,15 +40,15 @@ Nothing is exported by default.
 
 ## path2str
 
-Convert [Struct::Path](https://metacpan.org/pod/Struct::Path) path to JsonPointer path.
+Convert [Struct::Path](https://metacpan.org/pod/Struct::Path) path to JsonPointer.
 
-    $jp_path = path2str($sp_path);
+    $pointer = path2str($path);
 
 ## str2path
 
-Convert JsonPointer path to [Struct::Path](https://metacpan.org/pod/Struct::Path) path.
+Convert JsonPointer to [Struct::Path](https://metacpan.org/pod/Struct::Path) path.
 
-    $sp_path = str2path($jp_path);
+    $path = str2path($pointer);
 
 # AUTHOR
 
