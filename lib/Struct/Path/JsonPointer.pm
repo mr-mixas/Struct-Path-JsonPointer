@@ -126,29 +126,27 @@ sub _hook {
     my $step = $_[0];
 
     return sub {
-        my $i = @{$_[0]}; # step number
-
         if (ref $_ eq 'ARRAY') {
             if ($step eq '-') {
                 $step = @{$_}; # Hyphen as array index should append new item
             } else {
-                croak "Unsigned int without leading zeros allowed only, step #$i"
+                croak "Incorrect array index, step #" . @{$_[0]}
                     unless ($step eq abs(int($step)));
 
-                croak "Index is out of range, step #$i"
+                croak "Index is out of range, step #" . @{$_[0]}
                     if ($step > $#{$_});
             }
 
             push @{$_[0]}, [$step]; # update path
             push @{$_[1]}, \$_->[$step]; # update refs stack
         } elsif (ref $_ eq 'HASH') { # HASH
-            croak "'$step' key doesn't exist, step #$i"
+            croak "'$step' key doesn't exist, step #" . @{$_[0]}
                 unless (exists $_->{$step});
 
             push @{$_[0]}, {K => [$step]}; # update path
             push @{$_[1]}, \$_->{$step}; # update refs stack
         } else {
-            croak "Structure doesn't match, step #$i";
+            croak "Structure doesn't match, step #" . @{$_[0]};
         }
 
         return 1;
