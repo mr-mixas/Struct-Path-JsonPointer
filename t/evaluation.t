@@ -79,4 +79,17 @@ is_deeply(
     "Hyphen as array index should append new undef item to array"
 );
 
+# expand tests
+eval { path([0,1,2], str2path('/3'), expand => 1) };
+is($@, '', 'last idx + 1 is allowed to expand');
+
+eval { path([0,1,2], str2path('/4'), expand => 1) };
+like($@, qr/Index is out of range, step #0 /, 'last idx + 2 and more is not allowed to expand');
+
+eval { path({}, str2path('/2'), expand => 1) };
+is($@, '');
+
+eval { path({}, str2path('/2'), expand => 0) };
+like($@, qr/'2' key doesn't exist, step #0 /);
+
 done_testing();

@@ -134,14 +134,14 @@ sub _hook {
                     unless ($step eq abs(int($step)));
 
                 croak "Index is out of range, step #" . @{$_[0]}
-                    if ($step > $#{$_});
+                    if ($step > ($_{opts}->{expand} ? @{$_} : $#{$_}));
             }
 
             push @{$_[0]}, [$step]; # update path
             push @{$_[1]}, \$_->[$step]; # update refs stack
         } elsif (ref $_ eq 'HASH') { # HASH
             croak "'$step' key doesn't exist, step #" . @{$_[0]}
-                unless (exists $_->{$step});
+                unless (exists $_->{$step} or $_{opts}->{expand});
 
             push @{$_[0]}, {K => [$step]}; # update path
             push @{$_[1]}, \$_->{$step}; # update refs stack
