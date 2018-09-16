@@ -79,6 +79,11 @@ is_deeply(
     "Hyphen as array index should append new undef item to array"
 );
 
+# delete tests
+$data = [0,1,2];
+eval { path($data, str2path('/2'), delete => 1) };
+is_deeply($data, [0,1], 'Last item should be removed');
+
 # expand tests
 eval { path([0,1,2], str2path('/3'), expand => 1) };
 is($@, '', 'last idx + 1 is allowed to expand');
@@ -91,5 +96,14 @@ is($@, '');
 
 eval { path({}, str2path('/2'), expand => 0) };
 like($@, qr/'2' key doesn't exist, step #0 /);
+
+# insert tests
+$data = [0,1,2];
+eval { path($data, str2path('/2'), assign => 'new value') };
+is_deeply($data, [0,1,'new value'], 'Replace array item');
+
+$data = [0,1,2];
+eval { path($data, str2path('/2'), assign => 'new value', insert => 1) };
+is_deeply($data, [0,1,'new value',2], 'Insert array item');
 
 done_testing();

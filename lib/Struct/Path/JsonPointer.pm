@@ -123,7 +123,7 @@ Convert JsonPointer to L<Struct::Path|Struct::Path> path.
 
 # some steps (numbers, dash) should be evaluated using structure
 sub _hook {
-    my $step = $_[0];
+    my ($step, $last) = @_;
 
     return sub {
         if (ref $_ eq 'ARRAY') {
@@ -137,8 +137,13 @@ sub _hook {
                     if ($step > ($_{opts}->{expand} ? @{$_} : $#{$_}));
             }
 
+            splice @{$_}, $step, 0, undef if ($last and $_{opts}->{insert});
+
             push @{$_[0]}, [$step]; # update path
             push @{$_[1]}, \$_->[$step]; # update refs stack
+
+            splice @{$_}, $step, 1 if ($last and $_{opts}->{delete});
+
         } elsif (ref $_ eq 'HASH') { # HASH
             croak "'$step' key doesn't exist, step #" . @{$_[0]}
                 unless (exists $_->{$step} or $_{opts}->{expand});
@@ -161,7 +166,7 @@ sub str2path {
 
     for my $step (@steps) {
         if (looks_like_number($step) or $step eq '-') {
-            push @path, _hook($step);
+            push @path, _hook($step, @path == $#steps);
         } else { # hash
             $step =~ s|~1|/|g;
             $step =~ s|~0|~|g;
