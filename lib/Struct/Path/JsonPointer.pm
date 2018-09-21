@@ -159,6 +159,8 @@ sub _hook {
 };
 
 sub str2path {
+    croak "Undefined JSON Pointer passed" unless (defined $_[0]);
+
     my @steps = split('/', $_[0], -1);
     shift @steps if (substr($_[0], 0, 1) eq '/');
 
