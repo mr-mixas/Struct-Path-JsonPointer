@@ -15,8 +15,7 @@ our @EXPORT_OK = qw(
 
 =head1 NAME
 
-Struct::Path::JsonPointer - JsonPointer (L<rfc6901|https://tools.ietf.org/html/rfc6901>)
-syntax frontend for L<Struct::Path|Struct::Path>
+Struct::Path::JsonPointer - JSON Pointer (rfc6901) syntax frontend for L<Struct::Path>
 
 =begin html
 
@@ -63,7 +62,7 @@ Nothing is exported by default.
 
 =head2 path2str
 
-Convert L<Struct::Path|Struct::Path> path to JsonPointer.
+Convert L<Struct::Path|Struct::Path> path to JSON Pointer.
 
     $pointer = path2str($path);
 
@@ -115,7 +114,7 @@ sub path2str {
 
 =head2 str2path
 
-Convert JsonPointer to L<Struct::Path|Struct::Path> path.
+Convert JSON Pointer to L<Struct::Path|Struct::Path> path.
 
     $path = str2path($pointer);
 
@@ -226,7 +225,7 @@ L<http://search.cpan.org/dist/Struct-Path-JsonPointer/>
 
 L<JSON::Pointer>, L<rfc6901|https://tools.ietf.org/html/rfc6901>
 
-L<Struct::Path>, L<Struct::Path::PerlStyle>, L<Struct::Diff>
+L<Struct::Path>, L<Struct::Path::PerlStyle>, L<JSON::Patch>, L<Struct::Diff>
 
 =head1 LICENSE AND COPYRIGHT
 
